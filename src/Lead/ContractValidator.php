@@ -8,17 +8,12 @@ use App\Lead\Dto\Lead;
 
 class ContractValidator
 {
-    /** @var ContractRepository */
-    private $contractRepository;
-
-    public function __construct(ContractRepository $contractRepository)
+    public function __construct()
     {
-        $this->contractRepository = $contractRepository;
     }
 
-    public function getValidContracts(Lead $lead): array
+    public function getValidContracts(Lead $lead, array $contracts): array
     {
-        $contracts = $this->contractRepository->findContracts();
         $validContracts = [];
         foreach ($contracts as $contract) {
             if (!empty($contract->getLocations()) && !in_array($lead->getLocation(), $contract->getLocations())) {
